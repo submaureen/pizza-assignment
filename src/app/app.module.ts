@@ -12,12 +12,14 @@ import { MaterialModule } from './shared/material.module';
 import { FormsModule }        from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PizzaInterceptor } from './core/pizza-interceptor.service';
+import { OrderDialogComponent } from './pages/dashboard/order-dialog/order-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    OrderDialogComponent
   ],
   imports: [
     BrowserModule,

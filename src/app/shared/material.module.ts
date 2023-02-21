@@ -6,11 +6,17 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button"
 
 import { MatSidenavModule } from "@angular/material/sidenav";
-
 import { MatTableModule } from "@angular/material/table";
 import {MatListModule} from '@angular/material/list'; 
 import {MatDialogModule} from '@angular/material/dialog'; 
 import { MatIconModule } from "@angular/material/icon";
+import {MatButtonToggleModule} from '@angular/material/button-toggle'; 
+import {MatSelectModule} from '@angular/material/select'; 
+import {MatSnackBarModule} from '@angular/material/snack-bar'; 
+
+
+// import {  } from "@angular/material/";
+// import { MatButtonModule } from "@angular/material/le";
 
 const modules = [
   MatCardModule,
@@ -18,7 +24,12 @@ const modules = [
   MatButtonModule,
   MatSidenavModule,
   MatTableModule,
-  MatIconModule
+  MatListModule,
+  MatDialogModule,
+  MatIconModule,
+  MatButtonToggleModule,
+  MatSelectModule,
+  MatSnackBarModule
 ];
 
 @NgModule({

@@ -1,9 +1,22 @@
-<form (ngSubmit)="onSubmit($event)">
-    <div class="login-container">
-    <mat-form-field>
-        <mat-label>Input</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <button mat-raised-button color="primary">Login</button>
+<div id="main-div">
+    <mat-card id="login-card">
+        <mat-card-header id="login-header">
+            <h1>Login</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <form (ngSubmit)="onSubmit($event)" [formGroup]="loginForm">
+                <div class="login-container">
+                    <mat-form-field>
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="username">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Password</mat-label>
+                        <input matInput formControlName="password">
+                    </mat-form-field>
+                    <button mat-raised-button color="primary">Login</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
 </div>
-</form>

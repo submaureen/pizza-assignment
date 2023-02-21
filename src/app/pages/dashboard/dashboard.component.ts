@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit{
   pizzas: any = []
   dataSource = []
-  displayedColumns: string[] = ['Order_ID', 'Flavor', 'Crust', 'Size', 'Table_No', 'Timestamp']
+  displayedColumns: string[] = ['Order_ID', 'Flavor', 'Crust', 'Size', 'Table_No', 'Timestamp', 'Trash']
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -25,7 +25,6 @@ export class DashboardComponent implements OnInit{
 
   ngOnInit(): void {
     this.http.get('https://pizza-api-app.herokuapp.com/api/orders').subscribe((pizzas: any) => {
-      console.log(pizzas)
       this.dataSource = pizzas
     })
   }

@@ -7,7 +7,7 @@ export class AuthService {
 
   constructor() { }
   IsLoggedIn() {
-    // assume logged in for now
-    return true;
+    let token = localStorage.getItem('token');
+    return (token !== '' && token !== null)
   }
 }

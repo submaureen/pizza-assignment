@@ -1,0 +1,14 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" opened class="sidenav">
+        <div id="sidenav-content">
+            <button mat-button color="basic" class="nav-button">New Order</button>
+            <button mat-button color="basic" (click)="onLogout($event)" class="nav-button">Logout</button>
+        </div>
+    </mat-sidenav>
+    <div class="dashboard-container">
+        <h1>Pizzas</h1>
+        <div class="pizza-table">
+            table placeholder
+        </div>
+    </div>
+</mat-sidenav-container>

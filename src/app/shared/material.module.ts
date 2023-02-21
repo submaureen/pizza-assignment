@@ -7,16 +7,18 @@ import { MatButtonModule } from "@angular/material/button"
 
 import { MatSidenavModule } from "@angular/material/sidenav";
 
-
-
-// import {  } from "@angular/material/";
-// import { MatButtonModule } from "@angular/material/le";
+import { MatTableModule } from "@angular/material/table";
+import {MatListModule} from '@angular/material/list'; 
+import {MatDialogModule} from '@angular/material/dialog'; 
+import { MatIconModule } from "@angular/material/icon";
 
 const modules = [
   MatCardModule,
   MatInputModule,
   MatButtonModule,
   MatSidenavModule,
+  MatTableModule,
+  MatIconModule
 ];
 
 @NgModule({

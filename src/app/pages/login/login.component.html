@@ -1,20 +1,34 @@
 <div id="main-div">
     <mat-card id="login-card">
         <mat-card-header id="login-header">
-            <h1>Login</h1>
+            <h2>Login</h2>
         </mat-card-header>
         <mat-card-content>
             <form (ngSubmit)="onSubmit($event)" [formGroup]="loginForm">
                 <div class="login-container">
-                    <mat-form-field>
+                    <mat-form-field class="login-field">
                         <mat-label>Username</mat-label>
                         <input matInput formControlName="username">
+                        <mat-error *ngIf="loginForm.controls.username.hasError('required')">
+                            Username is required.
+                          </mat-error>
                     </mat-form-field>
-                    <mat-form-field>
+                    <mat-form-field class="login-field">
                         <mat-label>Password</mat-label>
                         <input matInput formControlName="password">
+                        <mat-error *ngIf="loginForm.controls.password.hasError('required')">
+                            Password is required.
+                          </mat-error>
                     </mat-form-field>
-                    <button mat-raised-button color="primary">Login</button>
+
+                    <div *ngIf="showError" id="login-error">
+                        <mat-icon class="material-icons" style="padding-right: 5px;">info</mat-icon>
+                            {{errorMessage}}  
+                    </div>
+                    <div class="login-field login-button-container">
+                        <button mat-raised-button color="primary" id="login-button">Login</button>
+
+                    </div>
                 </div>
             </form>
         </mat-card-content>

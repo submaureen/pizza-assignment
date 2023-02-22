@@ -14,6 +14,8 @@ export class LoginComponent {
   }
   submitted = false;
   credentialString = '';
+  showError = false;
+  errorMessage = '';
 
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -21,6 +23,7 @@ export class LoginComponent {
   });
 
   onSubmit(event: any) {
+
     if(this.loginForm.valid) {
       this.credentialString = JSON.stringify(this.loginForm.getRawValue())
       this.pizzaService.getPostAuth(this.credentialString).subscribe({
@@ -28,7 +31,12 @@ export class LoginComponent {
           localStorage.setItem("token", res.access_token)
           this.router.navigate([''])
         },
-        error: (error) => {console.error(error)},
+        error: (error) => {
+          this.loginForm.controls['username'].setErrors({'incorrect': true})
+          this.loginForm.controls['password'].setErrors({'incorrect': true})
+          this.showError = true
+          this.errorMessage = error.error.msg
+        },
       })
     }
   }

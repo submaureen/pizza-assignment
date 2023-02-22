@@ -1,0 +1,50 @@
+
+
+.login-container {
+    display: flex;
+    // background-color: red;
+    flex-direction: column;
+    // max-width: 50%;
+    // justify-self: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-card {
+    width: 25%;
+}
+
+#login-header {
+    justify-content: center;
+}
+
+#main-div{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+#login-error{
+    width: 100%;
+    background-color: red;
+    border-radius: 5px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-field {
+    padding-top: 20px;
+    width: 100%;
+}
+
+.login-button-container {
+    height: 50px;
+}
+#login-button {
+    width: 100%;
+    height: 90%;
+    font-size: 1rem;
+}

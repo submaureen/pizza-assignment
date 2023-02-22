@@ -1,0 +1,30 @@
+.dialog-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  
+  .pizza-form-label {
+    padding-right: 5px;
+  }
+  
+  .pizza-form-option {
+    display: flex;
+    padding-top: 10px;
+  }
+  
+  #duplicate-container {
+    display: flex;
+    justify-content: center;
+  
+  }
+  
+  #duplicate-card {
+    border: 2px solid red;
+    max-width: 75%;
+  }
+  
+  #pizza-form {
+    padding-top: 0px;
+  }

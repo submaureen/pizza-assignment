@@ -35,7 +35,9 @@ export class OrderDialogComponent {
   duplicatePizza = false
 
   successPizzas: Pizza[] = [];
-  badPizzas: Pizza[] = [];
+  badPizzas: {pizza: Pizza, reason: string}[] = [];
+
+  testArray = Array(100).fill(0).map((x,i)=>i);
 
 
 
@@ -80,6 +82,7 @@ export class OrderDialogComponent {
         
       }
       else {
+        this.duplicatePizza = false
         this.currentPage = this.enum.OrderList
         this.pizzaList.push(newPizza)
 
@@ -94,6 +97,7 @@ export class OrderDialogComponent {
   }
 
   onNewOrderClick(){
+    this.duplicatePizza = false;
     this.submitted = false;
     this.pizzaForm.reset();
     this.currentPage = this.enum.Build
@@ -120,7 +124,7 @@ export class OrderDialogComponent {
             this.router.navigate(['/login'])
             return
           }
-          this.badPizzas.push(pizza)
+          this.badPizzas.push({pizza, reason: error.error.msg})
 
         },
       })

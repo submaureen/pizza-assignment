@@ -13,6 +13,10 @@ import { MatIconModule } from "@angular/material/icon";
 import {MatButtonToggleModule} from '@angular/material/button-toggle'; 
 import {MatSelectModule} from '@angular/material/select'; 
 import {MatSnackBarModule} from '@angular/material/snack-bar'; 
+import {MatGridListModule} from '@angular/material/grid-list'; 
+import {MatDividerModule} from '@angular/material/divider'; 
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 // import {  } from "@angular/material/";
@@ -29,11 +33,15 @@ const modules = [
   MatIconModule,
   MatButtonToggleModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatGridListModule,
+  MatDividerModule,
+  MatTabsModule
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule
   ],

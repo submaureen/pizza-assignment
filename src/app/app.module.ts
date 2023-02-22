@@ -19,7 +19,7 @@ import { OrderDialogComponent } from './pages/dashboard/order-dialog/order-dialo
     AppComponent,
     DashboardComponent,
     LoginComponent,
-    OrderDialogComponent
+    OrderDialogComponent,
   ],
   imports: [
     BrowserModule,

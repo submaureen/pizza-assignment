@@ -9,46 +9,45 @@
   </div>
   
   <div id="duplicate-container">
-    <mat-card *ngIf="this.duplicatePizza" id="duplicate-card">
+    <mat-card *ngIf="duplicatePizza" id="duplicate-card">
       <mat-card-content>This pizza is already in the Order List.</mat-card-content>
-      
     </mat-card>
   
   </div>
   <div mat-dialog-content *ngIf="this.currentPage === this.enum.Build" id="pizza-form">
     <form [formGroup]="pizzaForm" (submit)="onSubmit()">
+      
       <div class="pizza-form-option">
   
         <p class="pizza-form-label">Flavor</p>
-        <mat-button-toggle-group name="flavor" formControlName="flavor" aria-label="Flavor">
+        <mat-button-toggle-group name="flavor" formControlName="flavor" aria-label="Flavor" [ngClass]="{'invalid-select': !pizzaForm.controls.flavor.valid && submitted}">
           <mat-button-toggle value="PEPPERONI">Pepperoni</mat-button-toggle>
           <mat-button-toggle value="CHEESE">Cheese</mat-button-toggle>
           <mat-button-toggle value="BEEF-NORMAL">Beef</mat-button-toggle>
         </mat-button-toggle-group>
-        <p *ngIf="!pizzaForm.controls.flavor.valid && submitted">this is required</p>
+        <!-- <p *ngIf="!pizzaForm.controls.flavor.valid && submitted">this is required</p> -->
       </div>
   
       <div class="pizza-form-option">
   
         <p class="pizza-form-label">Crust</p>
-        <mat-button-toggle-group name="crust" formControlName="crust" aria-label="Crust">
+        <mat-button-toggle-group name="crust" formControlName="crust" aria-label="Crust" [ngClass]="{'invalid-select': !pizzaForm.controls.crust.valid && submitted}">
           <mat-button-toggle value="THIN">Thin</mat-button-toggle>
           <mat-button-toggle value="NORMAL">Normal</mat-button-toggle>
           <mat-button-toggle value="STUFFED">Stuffed</mat-button-toggle>
         </mat-button-toggle-group>
-        <p *ngIf="!pizzaForm.controls.crust.valid && submitted">this is required</p>
       </div>
   
       <div class="pizza-form-option">
   
   
         <p class="pizza-form-label">Size</p>
-        <mat-button-toggle-group name="size" formControlName="size" aria-label="size">
+        <!-- <p *ngIf="!pizzaForm.controls.size.valid && submitted">this is required</p> -->
+        <mat-button-toggle-group name="size" formControlName="size" aria-label="size" [ngClass]="{'invalid-select': !pizzaForm.controls.size.valid && submitted}">
           <mat-button-toggle value="S">Small</mat-button-toggle>
           <mat-button-toggle value="M">Medium</mat-button-toggle>
           <mat-button-toggle value="L">Large</mat-button-toggle>
         </mat-button-toggle-group>
-        <p *ngIf="!pizzaForm.controls.size.valid && submitted">this is required</p>
       </div>
       <div class="pizza-form-option">
   
@@ -60,9 +59,13 @@
               {{tableNo}}
             </mat-option>
           </mat-select>
+          <!-- <mat-error *ngIf="pizzaForm.controls.table.hasError('required')">
+            Table is required.
+          </mat-error> -->
         </mat-form-field>
-        <p *ngIf="!pizzaForm.controls.table.valid && submitted">this is required</p>
       </div>
+
+      <p *ngIf="submitted && !duplicatePizza && !pizzaForm.valid" style="color: red;">Please fill all of the required fields.</p>
   
       <div mat-dialog-actions align="end">
         <button mat-flat-button color="primary" *ngIf="this.pizzaList.length > 0" (click)="onButtonNavClick(enum.OrderList)">List</button>
@@ -70,12 +73,17 @@
   
       </div>
     </form>
-  
-  
   </div>
   
   <div mat-dialog-content *ngIf="this.currentPage === this.enum.OrderList">
-    <div *ngFor="let order of pizzaList" >{{order.Size}} {{order.Flavor}} PIZZA WITH {{order.Crust}} CRUST</div>
+    <mat-list>
+      <mat-divider></mat-divider>
+      <div *ngFor="let order of pizzaList" >
+        <mat-list-item>{{order.Size}} {{order.Flavor}} PIZZA WITH {{order.Crust}} CRUST</mat-list-item>
+        <mat-divider></mat-divider>
+      </div>  
+
+    </mat-list>
     <form (submit)="onPlaceOrder()">
       <div mat-dialog-actions align="end">
         <button mat-flat-button type="button" color="primary" cdkFocusInitial (click)="onNewOrderClick()">Add Another</button>
@@ -86,10 +94,36 @@
   </div>
   
   <div mat-dialog-content *ngIf="this.currentPage === this.enum.Confirmation">
-    <p *ngIf="successPizzas.length > 0">
-        The following orders were successfully submitted:
-    </p>
-    <mat-list>
+    <mat-tab-group>
+      <!-- ssfsdf -->
+      <mat-tab label="Success" *ngIf="successPizzas.length > 0">
+        <br/>
+         The following orders were successfully submitted: 
+         <mat-list>
+
+           <div *ngFor="let order of successPizzas" >
+             <mat-list-item>{{order.Size}} {{order.Flavor}} PIZZA WITH {{order.Crust}} CRUST</mat-list-item>
+             <mat-divider></mat-divider>
+            </div>  
+          </mat-list>
+         
+      </mat-tab>
+      <mat-tab label="Failed Orders" *ngIf="badPizzas.length > 0">
+        <br/>
+        The following orders were not submitted:
+        <mat-list>
+
+          <div *ngFor="let order of badPizzas" >
+            <mat-list-item>{{order.pizza.Size}} {{order.pizza.Flavor}} PIZZA WITH {{order.pizza.Crust}} CRUST</mat-list-item>
+            <mat-divider></mat-divider>
+           </div>  
+         </mat-list>
+      </mat-tab>
+
+    </mat-tab-group>
+
+
+    <!-- <mat-list>
       <mat-list-item *ngFor="let pizza of successPizzas">
         <span matListItemTitle>{{pizza.Flavor}} pizza, {{pizza.Crust}} crust</span>
         <span matListItemLine>Size: {{pizza.Size}}</span>
@@ -99,7 +133,7 @@
     <p *ngIf="badPizzas.length > 0">
         The following orders were not submitted:
     </p>
-    <div *ngFor="let pizza of badPizzas">no thank you:  {{pizza.Crust}}</div>
+    <div *ngFor="let pizza of badPizzas">no thank you:  {{pizza.Crust}}</div> -->
   
     <div mat-dialog-actions align="end">
       <button mat-flat-button type="button" color="primary" cdkFocusInitial (click)="onModalClose()">Close</button>

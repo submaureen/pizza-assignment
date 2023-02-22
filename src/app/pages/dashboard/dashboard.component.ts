@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
     // keep ref of the dialog
     let currentDialog = this.matDialog.open(OrderDialogComponent, {
       data: this.unfilteredPizzas,
-      disableClose: true
+      disableClose: true,
       
     });
     // get orders again if an order was successfully placed

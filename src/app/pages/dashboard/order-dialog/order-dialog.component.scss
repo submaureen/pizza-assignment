@@ -7,6 +7,7 @@
   
   .pizza-form-label {
     padding-right: 5px;
+    width: 70px;
   }
   
   .pizza-form-option {
@@ -28,3 +29,7 @@
   #pizza-form {
     padding-top: 0px;
   }
+
+  .invalid-select {
+    border: solid 1px red;
+  } 

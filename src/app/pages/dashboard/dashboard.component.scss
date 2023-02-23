@@ -1,21 +1,7 @@
-@use '@angular/material' as mat;
-@use 'sass:map';
-@import '../../../styles.scss';
-$color-config: mat.get-color-config($first-pizza-theme);
 
-// get the chosen palette : primary, accent, warn
-$primary-palette: map.get($color-config, 'primary');
 
 #dashboard {
     display: flex;
-}
-
-#sidebar {
-    background-color: red;
-}
-
-#content {
-    background-color: pink;
 }
 
 .example-container {
@@ -29,7 +15,7 @@ $primary-palette: map.get($color-config, 'primary');
   
 .sidenav {
     width: 300px;
-    background-color: mat.get-color-from-palette($primary-palette, 400);
+    background-color: var(--primary-color);
 }
 
 .nav-button {

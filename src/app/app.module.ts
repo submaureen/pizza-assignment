@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 
-import { MaterialModule } from './shared/material.module';
+import { MaterialModule } from './material.module';
 import { FormsModule }        from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PizzaInterceptor } from './core/pizza-interceptor.service';

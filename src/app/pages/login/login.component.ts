@@ -11,15 +11,9 @@ import { AuthService } from 'src/app/core/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  ngOnInit(): void {
-    if(this.authService.IsLoggedIn()) {
-      this.router.navigate(['']);
-    }
-  }
-  
-  constructor(private router: Router, private pizzaService: PizzaService, private authService: AuthService) {
-  }
+  // if user has tried to submit
   submitted = false;
+  // {user: '', pw: ''}
   credentialString = '';
   showError = false;
   errorMessage = '';
@@ -29,9 +23,19 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  onSubmit(event: any) {
+  constructor(private router: Router, private pizzaService: PizzaService, private authService: AuthService) { }
 
-    if(this.loginForm.valid) {
+  // if the token exists move to dashboard
+  ngOnInit(): void {
+    if (this.authService.IsLoggedIn()) {
+      this.router.navigate(['']);
+    }
+  }
+
+  // if the form is valid, try to post login credential, set the login token, and go to dashboard,
+  // otherwise set the form fields to invalid
+  onSubmit() {
+    if (this.loginForm.valid) {
       this.credentialString = JSON.stringify(this.loginForm.getRawValue())
       this.pizzaService.getPostAuth(this.credentialString).subscribe({
         next: (res) => {
@@ -39,8 +43,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate([''])
         },
         error: (error) => {
-          this.loginForm.controls['username'].setErrors({'incorrect': true})
-          this.loginForm.controls['password'].setErrors({'incorrect': true})
+          this.loginForm.controls['username'].setErrors({ 'incorrect': true })
+          this.loginForm.controls['password'].setErrors({ 'incorrect': true })
           this.showError = true
           this.errorMessage = error.error.msg
         },

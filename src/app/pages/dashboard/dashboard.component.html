@@ -10,15 +10,14 @@
             <div class="button-container">
                 <button mat-flat-button (click)="openOrderDialog()" class="nav-button">
                     <mat-icon>add</mat-icon>
-                    New Order</button>
-
+                    New Order
+                </button>
             </div>
             <div class="button-container">
-                
-                <button mat-flat-button (click)="onLogout($event)" class="nav-button">
-                    
+                <button mat-flat-button (click)="onLogout()" class="nav-button">
                     <mat-icon>logout</mat-icon>
-                    Logout</button>
+                    Logout
+                </button>
             </div>
         </div>
     </mat-sidenav>
@@ -29,63 +28,64 @@
                 <ng-container matColumnDef="Crust">
                     <th mat-header-cell *matHeaderCellDef>
                         Crust
-                        <br/>
-                        <input matInput [(ngModel)]="filterPizza.Crust" (keyup)="onFilterChange($event, 'crust')">
+                        <br />
+                        <input matInput [(ngModel)]="filterPizza.Crust" (keyup)="onFilterChange()">
                     </th>
                     <td mat-cell *matCellDef="let pizza"> {{pizza.Crust | titlecase}} </td>
                 </ng-container>
                 <ng-container matColumnDef="Order_ID">
                     <th mat-header-cell *matHeaderCellDef>
                         Order ID
-                        <br/>
-                        <input matInput [(ngModel)]="filterPizza.Order_ID" (keyup)="onFilterChange($event, 'crust')">
+                        <br />
+                        <input matInput [(ngModel)]="filterPizza.Order_ID" (keyup)="onFilterChange()">
                     </th>
                     <td mat-cell *matCellDef="let pizza"> {{pizza.Order_ID}} </td>
                 </ng-container>
                 <ng-container matColumnDef="Flavor">
                     <th mat-header-cell *matHeaderCellDef> Flavor
-                        <br/>
-                        <input matInput [(ngModel)]="filterPizza.Flavor" (keyup)="onFilterChange($event, 'crust')">
+                        <br />
+                        <input matInput [(ngModel)]="filterPizza.Flavor" (keyup)="onFilterChange()">
                     </th>
                     <td mat-cell *matCellDef="let pizza"> {{pizza.Flavor.replace('-', ', ') | titlecase}} </td>
                 </ng-container>
                 <ng-container matColumnDef="Size">
                     <th mat-header-cell *matHeaderCellDef> Size
-                        <br/>
-                        <input matInput [(ngModel)]="filterPizza.Size" (keyup)="onFilterChange($event, 'crust')">
-                     </th>
+                        <br />
+                        <input matInput [(ngModel)]="filterPizza.Size" (keyup)="onFilterChange()">
+                    </th>
                     <td mat-cell *matCellDef="let pizza"> {{pizza.Size | acronym}} </td>
                 </ng-container>
                 <ng-container matColumnDef="Table_No">
                     <th mat-header-cell *matHeaderCellDef> Table #
-                        <br/>
-                        <input matInput [(ngModel)]="filterPizza.Table_No" (keyup)="onFilterChange($event, 'crust')">
-                     </th>
+                        <br />
+                        <input matInput [(ngModel)]="filterPizza.Table_No" (keyup)="onFilterChange()">
+                    </th>
                     <td mat-cell *matCellDef="let pizza"> {{pizza.Table_No}} </td>
                 </ng-container>
                 <ng-container matColumnDef="Timestamp">
-                    <th mat-header-cell *matHeaderCellDef> Timestamp 
-                        <br/>
-                        <input matInput [(ngModel)]="filterPizza.Timestamp" (keyup)="onFilterChange($event, 'crust')">
+                    <th mat-header-cell *matHeaderCellDef> Timestamp
+                        <br />
+                        <input matInput [(ngModel)]="filterPizza.Timestamp" (keyup)="onFilterChange()">
                     </th>
                     <td mat-cell *matCellDef="let pizza"> {{pizza.Timestamp | date: 'medium'}} </td>
                 </ng-container>
                 <ng-container matColumnDef="Trash">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let pizza">
-                        <mat-icon class="material-icons" (click)="onDelete(pizza)">delete</mat-icon>
+                        <button mat-icon-button color="warn">
+                            <mat-icon class="material-icons">delete</mat-icon>
+                        </button>
                     </td>
                 </ng-container>
                 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>    
-
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" [attr.colspan]="displayedColumns.length" style="text-align: center;">
-                      No orders found.
+                        No orders found.
                     </td>
-                  </tr>
+                </tr>
             </table>
         </div>
     </div>

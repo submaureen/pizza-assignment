@@ -14,8 +14,8 @@ import { AcronymPipe } from 'src/app/shared/pipes/acronym.pipe';
 })
 
 export class DashboardComponent implements OnInit {
-  // the result of /post
-  unfilteredPizzas: Pizza[] = []
+  // the result of /post - don't change this
+  unfilteredPizzas: Pizza[] = [];
 
   // setting data for table
   dataSource: Pizza[] = [];
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
     "Size": "",
     "Table_No": "",
     "Timestamp": ""
-  }
+  };
 
   constructor(private router: Router,
     private matDialog: MatDialog,
@@ -42,9 +42,8 @@ export class DashboardComponent implements OnInit {
     this.getOrders();
   }
 
-  /**
-   * get the list of orders from the API
-   */
+  
+  // get the list of orders from the API
   getOrders() {
     this.pizzaService.getPizzas().subscribe(pizzas => {
       this.dataSource = pizzas;
@@ -52,12 +51,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  /**
-   * remove auth token and redirect to login page
-   */
-  onLogout(event: any) {
-    localStorage.setItem('token', '')
-    this.router.navigate(['/login'])
+  // remove auth token and redirect to login page
+  onLogout() {
+    localStorage.setItem('token', '');
+    this.router.navigate(['/login']);
   }
 
   openOrderDialog() {
@@ -75,22 +72,22 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  onFilterChange(event: any, column: string) {
+  onFilterChange() {
     let searchPizzas = this.unfilteredPizzas.filter((pizza) => {
-      let matching = true
+      let matching = true;
 
       // for each pizza property (each search)
       for (const key in this.filterPizza) {
         // generated forin template
         if (Object.prototype.hasOwnProperty.call(this.filterPizza, key)) {
           // get each key (table column)
-          const column = key as keyof Pizza
+          const column = key as keyof Pizza;
           // get the contents of each column we're searching by
           let searchTerm = this.filterPizza[column]?.toString().toLowerCase();
 
-          // if search is blank, then it matches - go to next key
+          // if search is blank, nothing to search against - go to next key
           if (!searchTerm) {
-            continue
+            continue;
           }
           let comparisonColumn;
 
@@ -100,17 +97,15 @@ export class DashboardComponent implements OnInit {
               comparisonColumn = this.datePipe.transform(pizza[column], 'medium')?.toLowerCase();
               break;
             case 'Size':
-              comparisonColumn = this.acronymPipe.transform(pizza[column]).toLowerCase()
+              comparisonColumn = this.acronymPipe.transform(pizza[column]).toLowerCase();
               break;
             case 'Crust':
             case 'Flavor':
-              comparisonColumn = this.titlecasePipe.transform(pizza[column].replace('-', ', ')).toLowerCase()
+              comparisonColumn = this.titlecasePipe.transform(pizza[column].replace('-', ', ')).toLowerCase();
               break;
             default:
-              comparisonColumn = pizza[column]?.toString().toLowerCase()
-
+              comparisonColumn = pizza[column]?.toString().toLowerCase();
               break;
-
           }
 
           if(!comparisonColumn?.includes(searchTerm)) {
@@ -119,19 +114,17 @@ export class DashboardComponent implements OnInit {
           }
         }
       }
-      // made it this far without matching being set to false - let it return
-      return matching
-    })
+      // made it this far without matching being set to false - let it return within .filter
+      return matching;
+    });
 
-    this.dataSource = searchPizzas
-
+    this.dataSource = searchPizzas;
   }
 
   onDelete(row: any) {
-
     this.pizzaService.deletePizzaOrder(row.Order_ID).subscribe(res => {
-      this.getOrders()
-    })
+      this.getOrders();
+    });
   }
 
 }

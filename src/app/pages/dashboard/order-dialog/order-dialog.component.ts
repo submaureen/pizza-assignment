@@ -124,7 +124,7 @@ export class OrderDialogComponent {
             this.router.navigate(['/login'])
             return
           }
-          this.badPizzas.push({pizza, reason: error.error.msg})
+          this.badPizzas.push({pizza, reason: error.error.detail})
 
         },
       })

@@ -13,6 +13,9 @@ import { FormsModule }        from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PizzaInterceptor } from './core/pizza-interceptor.service';
 import { OrderDialogComponent } from './pages/dashboard/order-dialog/order-dialog.component';
+import { AcronymPipe } from './shared/pipes/acronym.pipe';
+import { TitleCasePipe, DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -20,6 +23,7 @@ import { OrderDialogComponent } from './pages/dashboard/order-dialog/order-dialo
     DashboardComponent,
     LoginComponent,
     OrderDialogComponent,
+    AcronymPipe,
   ],
   imports: [
     BrowserModule,
@@ -28,10 +32,13 @@ import { OrderDialogComponent } from './pages/dashboard/order-dialog/order-dialo
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: PizzaInterceptor, multi: true},
+    TitleCasePipe,
+    DatePipe,
+    AcronymPipe
   ],
   bootstrap: [AppComponent]
 })

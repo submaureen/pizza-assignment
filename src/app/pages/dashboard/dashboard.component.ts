@@ -4,6 +4,8 @@ import { Pizza } from 'src/app/shared/interfaces/pizza';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OrderDialogComponent } from "./order-dialog/order-dialog.component";
 import { PizzaService } from 'src/app/core/pizza.service';
+import { DatePipe, TitleCasePipe } from '@angular/common';
+import { AcronymPipe } from 'src/app/shared/pipes/acronym.pipe';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +31,12 @@ export class DashboardComponent implements OnInit {
     "Timestamp": ""
   }
 
-  constructor(private router: Router, private matDialog: MatDialog, private pizzaService: PizzaService) { }
+  constructor(private router: Router,
+    private matDialog: MatDialog,
+    private pizzaService: PizzaService,
+    private acronymPipe: AcronymPipe,
+    private datePipe: DatePipe,
+    private titlecasePipe: TitleCasePipe) { }
 
   ngOnInit(): void {
     this.getOrders();
@@ -58,7 +65,7 @@ export class DashboardComponent implements OnInit {
     let currentDialog = this.matDialog.open(OrderDialogComponent, {
       data: this.unfilteredPizzas,
       disableClose: true,
-      
+
     });
     // get orders again if an order was successfully placed
     currentDialog.afterClosed().subscribe(result => {
@@ -69,33 +76,54 @@ export class DashboardComponent implements OnInit {
   }
 
   onFilterChange(event: any, column: string) {
-
-    var res = this.unfilteredPizzas.filter((pizza) => {
+    let searchPizzas = this.unfilteredPizzas.filter((pizza) => {
       let matching = true
 
+      // for each pizza property (each search)
       for (const key in this.filterPizza) {
-
+        // generated forin template
         if (Object.prototype.hasOwnProperty.call(this.filterPizza, key)) {
+          // get each key (table column)
           const column = key as keyof Pizza
-          // const test = key as keyof Pizza;
-          const element = this.filterPizza[column]?.toString().toLowerCase();
+          // get the contents of each column we're searching by
+          let searchTerm = this.filterPizza[column]?.toString().toLowerCase();
 
-          if (!element) {
+          // if search is blank, then it matches - go to next key
+          if (!searchTerm) {
             continue
           }
+          let comparisonColumn;
 
-          if (!pizza[column]?.toString().toLowerCase().includes(element)) {
-            matching = false
-            continue
+          // formatting for each column - pipe changes how it looks so have to match it here
+          switch(column) {
+            case 'Timestamp': 
+              comparisonColumn = this.datePipe.transform(pizza[column], 'medium')?.toLowerCase();
+              break;
+            case 'Size':
+              comparisonColumn = this.acronymPipe.transform(pizza[column]).toLowerCase()
+              break;
+            case 'Crust':
+            case 'Flavor':
+              comparisonColumn = this.titlecasePipe.transform(pizza[column].replace('-', ', ')).toLowerCase()
+              break;
+            default:
+              comparisonColumn = pizza[column]?.toString().toLowerCase()
+
+              break;
+
           }
 
+          if(!comparisonColumn?.includes(searchTerm)) {
+            matching = false;
+            continue
+          }
         }
       }
+      // made it this far without matching being set to false - let it return
       return matching
-
     })
 
-    this.dataSource = res
+    this.dataSource = searchPizzas
 
   }
 

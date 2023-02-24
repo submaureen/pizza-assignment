@@ -43,8 +43,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate([''])
         },
         error: (error) => {
-          this.loginForm.controls['username'].setErrors({ 'incorrect': true })
-          this.loginForm.controls['password'].setErrors({ 'incorrect': true })
           this.showError = true
           this.errorMessage = error.error.msg
         },
